@@ -17,7 +17,7 @@ public class BattleScene {
                     isFightEnded = makeHit(hero, monster, fightCallback);
                 }
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -31,6 +31,7 @@ public class BattleScene {
     private Boolean makeHit(FantasyCharacter defender, FantasyCharacter attacker, FightCallback fightCallback) {
         int hit = attacker.attack();
         int defenderHealth = defender.getHealthPoints() - hit;
+
         if (hit != 0) {
             System.out.println(String.format("%s Нанес удар в %d единиц!", attacker.getName(), hit));
             System.out.println(String.format("У %s осталось %d единиц здоровья...", defender.getName(), defenderHealth));
@@ -43,14 +44,16 @@ public class BattleScene {
             fightCallback.fightLost();
             return true;
         } else if (defenderHealth <= 0) {
-            System.out.println(String.format("Враг повержен! Вы получаете %d опыт и %d золота", defender.getXp(), defender.getGold()));
+            System.out.println(String.format("Враг повержен! Вы получаете %d опыт и %d золота и %d силу противника", defender.getXp(), defender.getGold() , defender.getStrength()));
             attacker.setXp(attacker.getXp() + defender.getXp());
             attacker.setGold(attacker.getGold() + defender.getGold());
+            attacker.setStrength(attacker.getStrength() + defender.getStrength());
             fightCallback.fightWin();
             return true;
         } else {
 
             defender.setHealthPoints(defenderHealth);
+
             return false;
         }
 

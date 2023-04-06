@@ -1,14 +1,18 @@
 package Game;
 
-public class Merchant {
-    public String sell(Merchant.Goods goods){
+public abstract class Merchant implements Seller {
+
+    @Override
+    public String sell(Goods goods) {
         String result = "";
-        if(goods == Goods.POTION){
+        if (goods == Goods.POTION) {
             result = "potion";
         }
         return result;
     }
-    public enum Goods{
+
+    //Энам для товаров
+    public enum Goods {
         POTION;
+        }
     }
-}
